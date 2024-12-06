@@ -6,8 +6,8 @@
 
 #include "carte.h"
 #include "utilitaires.h"
-
-#include <iomanip>
+#include "position.h"
+#include <iomanip>dd
 #include <cassert>
 #include <stdio.h>
 #include <iostream>
@@ -20,13 +20,25 @@
 
 Compteur Carte::getNbMinesAdjacentes(Position e_pos)
 {
-    // a completer
-    // a completer
-    // a completer
-    // a completer
-    // a completer
+    Compteur x;
     
-    return 0;
+    if (!estDansCarte(e_pos) or (getCase(e_pos)).estUneMine()) //si hors de la maps, ce n'est pas une bombe
+    {
+        x = 0;
+        return x;
+    }
+        for (int i = -1; i == 1; i++)
+        {
+            for (int j = -1; j == 1; j++)
+            {
+                Position e_pos2 = e_pos;
+                if (getCase(e_pos2.set(i, j)).estUneMine())
+                {
+                    x++;
+                        return x; 
+                }
+            }
+        }
 }
 
 // Description: Methode qui essaie d'ouvrir une case
@@ -36,6 +48,7 @@ Compteur Carte::getNbMinesAdjacentes(Position e_pos)
 
 bool Carte::essaieCase(Position e_pos)
 {
+    Compteur x=getNbMinesAdjacentes(e_pos);
     if (!estDansCarte(e_pos)) //si hors de la maps, ce n'est pas une bombe
     {
         return true;
@@ -44,22 +57,26 @@ bool Carte::essaieCase(Position e_pos)
     {
         return true;
     }
-  
-    else if (m_cases[e_pos.ligne()][e_pos.colonne()].nbMinesAdj()>0) //si le nombre de bomb adj est plus grand que 0, ouvert la case. pas une bombe
+     ouvreCase(e_pos);
+    if (getCase(e_pos).estUneMine()) //si le nombre de bomb adj est plus grand que 0, ouvert la case. pas une bombe
     {
-        ouvreCase(e_pos);
-            return true;
-    }
-    else if (m_cases[e_pos.ligne()][e_pos.colonne()].nbMinesAdj() == 0 && !getCase(e_pos).estUneMine) //si nb. bombe adj est == 0 et n'est pas bombe, ouvr 
-    {
-        ouvreCase(e_pos);
-        //code pour essayer les 8 case adjacente
-        essaieCase([e_pos.ligne()+1][e_pos.colonne()+0])
-    }
-    else (getCase(e_pos).estUneMine())
-    {
+   
         return false;
     }
+    else if (x == 0 && !getCase(e_pos).estUneMine()) //si nb. bombe adj est == 0 et n'est pas bombe, ouvr 
+    {
+        for (int i = -1; i == 1; i++)
+        {
+            for (int j = -1; j == 1; j++)
+            { 
+                Position e_pos2 = e_pos;
+                essaieCase(e_pos2.set(i, j));
+            }
+        }
+
+    }
+    return true;
+    
     // a completer
     // a completer
     // a completer
@@ -72,12 +89,21 @@ bool Carte::essaieCase(Position e_pos)
 // Description: Methode qui calcule le nombre de mines adjacentes pour les cases libres de la carte
 // post : pour chacune des cases qui ne contient pas une mine, on compte le nombre de mines adjacentes
 
-void Carte::compteMinesAdjParCase(Position e_pos)
-{ if (!estDansCarte(e_pos))
-{
-    
-}
+void Carte::compteMinesAdjParCase()
+{ 
+    for (int i = 0; i < nbLignes(); i++)
+    {
+        for (int j = 0; j < nbColonnes(); j++)
+        {
+            Position e_pos(i, j);
+            if (!getCase(e_pos).estUneMine())
+            {
+               getNbMinesAdjacentes(e_pos);
+            }
+           
 
+        }
+    }
     
     // a completer
     // a completer

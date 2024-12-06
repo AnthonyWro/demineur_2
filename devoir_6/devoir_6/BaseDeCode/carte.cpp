@@ -10,7 +10,7 @@
 
 #include "carte.h"
 #include "utilitaires.h"
-
+#include "position.h"
 #include <iomanip>
 #include <cassert>
 

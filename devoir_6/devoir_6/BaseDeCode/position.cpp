@@ -8,6 +8,11 @@
 // pre : le flux est existant et ouvert (diff. de NULL)
 // post : lit une valeur dans le flux jusqu'à ce qu'elle soit un entier
 
+#include"carte.h"
+#include"position.h"
+#include<iostream>
+#include<cassert>
+
 void lireValiderEntier(istream& es_entree, int &s_entier)
 {
     assert(es_entree);
@@ -24,3 +29,34 @@ void lireValiderEntier(istream& es_entree, int &s_entier)
     
     assert(es_entree);
 }
+
+
+Position::Position(int x, int y)
+{
+    coln = y;
+    lign = x;
+}
+Position::Position()
+{
+    coln = 0;
+    lign = 0;
+}
+
+
+
+
+int Position::ligne()
+{
+    return lign;
+}
+int Position::colonne()
+{
+    return coln;
+}
+
+ Position Position::set(int x, int y)
+{
+    lign = lign + x;
+    coln = coln + y;
+} 
+ 
