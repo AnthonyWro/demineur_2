@@ -61,7 +61,7 @@ bool Carte::essaieCase(Position e_pos)
     return true;
 }
 
-void Carte::compteMinesAdjParCase(Position e_pos)
+void Carte::compteMinesAdjParCase()
 {
     for (size_t ligne = 0; ligne < m_cases.size(); ligne++)
     {

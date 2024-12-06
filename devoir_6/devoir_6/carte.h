@@ -29,7 +29,7 @@ class Carte
     // Description: Methode utilitaire qui calcule le nombre de mines adjacentes pour les cases libres de la carte
     // post : pour chacune des cases qui ne contient pas une mine, on compte le nombre de mines adjacentes
 
-    void compteMinesAdjParCase(Position);
+    void compteMinesAdjParCase();
     
     // Description: Methode qui calcule le nombre de mines adjacentes a une case
     // param[E] Position de la case
